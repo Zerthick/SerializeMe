@@ -11,23 +11,18 @@ import java.io.*;
 
 public class ItemStackHOCONSerializer {
 
-    public static String serializeSnapShot(ItemStackSnapshot snapshot) throws ObjectMappingException, IOException {
+    public static String serializeSnapShot(ItemStackSnapshot snapshot, boolean concise) throws ObjectMappingException, IOException {
         ConfigurationNode node = HoconConfigurationLoader.builder().build().createEmptyNode();
         StringWriter stringWriter = new StringWriter();
 
         node.setValue(TypeToken.of(ItemStackSnapshot.class), snapshot);
-        HoconConfigurationLoader.builder().setSink(() -> new BufferedWriter(stringWriter)).build().save(node);
+        HoconConfigurationLoader.Builder builder = HoconConfigurationLoader.builder().setSink(() -> new BufferedWriter(stringWriter));
 
-        return stringWriter.toString();
-    }
+        if (concise) {
+            builder.setRenderOptions(ConfigRenderOptions.concise());
+        }
 
-    public static String serializeSnapShotConcise(ItemStackSnapshot snapshot) throws ObjectMappingException, IOException {
-        ConfigurationNode node = HoconConfigurationLoader.builder().build().createEmptyNode();
-        StringWriter stringWriter = new StringWriter();
-
-        node.setValue(TypeToken.of(ItemStackSnapshot.class), snapshot);
-        HoconConfigurationLoader.builder().setRenderOptions(ConfigRenderOptions.concise()).setSink(() -> new BufferedWriter(stringWriter)).build().save(node);
-
+        builder.build().save(node);
         return stringWriter.toString();
     }
 

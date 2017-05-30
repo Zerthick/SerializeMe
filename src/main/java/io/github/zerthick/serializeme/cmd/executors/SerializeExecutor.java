@@ -31,13 +31,8 @@ public class SerializeExecutor extends AbstractCmdExecutor {
             if (itemStackOptional.isPresent()) {
                 try {
 
-                    String serializeItem;
-
-                    if (args.hasAny("c")) {
-                        serializeItem = ItemStackHOCONSerializer.serializeSnapShotConcise(itemStackOptional.get().createSnapshot());
-                    } else {
-                        serializeItem = ItemStackHOCONSerializer.serializeSnapShot(itemStackOptional.get().createSnapshot());
-                    }
+                    String serializeItem = ItemStackHOCONSerializer.serializeSnapShot(itemStackOptional.get().createSnapshot(),
+                            args.hasAny("c"));
 
                     player.sendMessage(Text.of(serializeItem));
                 } catch (ObjectMappingException | IOException e) {
