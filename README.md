@@ -2,7 +2,7 @@
 
 A Simple Minecraft Plugin to Serialize Itemstacks to HOCON!
 
-SerializeMe was orignially created as a debugging tool, but has been release in the hopes that it may be useful to other plugin developers / server administrators.  SerializeMe allows a player to convert an itemstack into HOCON format for the purpose of examining any custom data attached to the object, as well as for storage for later retrival.
+SerializeMe was orignially created as a debugging tool, but has been released in the hopes that it may be useful to other plugin developers / server administrators.  SerializeMe allows a player to convert an itemstack into HOCON format for the purpose of examining any custom data attached to the object, as well as for storage for later retrival.
 
 ## Commands
 
