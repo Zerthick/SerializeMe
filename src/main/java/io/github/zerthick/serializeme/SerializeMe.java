@@ -30,7 +30,7 @@ import org.spongepowered.api.plugin.PluginContainer;
 @Plugin(
         id = "serializeme",
         name = "SerializeMe",
-        version = "0.0.1",
+        version = "1.0.0",
         description = "Serialize an ItemStack to HOCON!",
         authors = {
                 "Zerthick"
