@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017  Zerthick
+ * Copyright (C) 2018  Zerthick
  *
  * This file is part of SerializeMe.
  *
@@ -23,7 +23,6 @@ import io.github.zerthick.serializeme.SerializeMe;
 import io.github.zerthick.serializeme.cmd.CommandArgs;
 import io.github.zerthick.serializeme.util.ItemStackHOCONSerializer;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
-import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
@@ -43,7 +42,7 @@ public class DeserializeExecutor extends AbstractCmdExecutor {
     }
 
     @Override
-    public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+    public CommandResult execute(CommandSource src, CommandContext args) {
 
         if (src instanceof Player) {
             Player player = (Player) src;

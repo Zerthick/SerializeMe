@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017  Zerthick
+ * Copyright (C) 2018  Zerthick
  *
  * This file is part of SerializeMe.
  *
@@ -20,7 +20,6 @@
 package io.github.zerthick.serializeme.cmd.executors;
 
 import io.github.zerthick.serializeme.SerializeMe;
-import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
@@ -37,7 +36,7 @@ public class SerializeMeExecutor extends AbstractCmdExecutor {
     }
 
     @Override
-    public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+    public CommandResult execute(CommandSource src, CommandContext args) {
 
         src.sendMessage(Text.of(TextColors.DARK_GREEN, container.getName(),
                 TextColors.GREEN, " version: ", TextColors.DARK_GREEN,

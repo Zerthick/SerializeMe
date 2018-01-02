@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017  Zerthick
+ * Copyright (C) 2018  Zerthick
  *
  * This file is part of SerializeMe.
  *
@@ -30,7 +30,6 @@ import org.spongepowered.api.plugin.PluginContainer;
 @Plugin(
         id = "serializeme",
         name = "SerializeMe",
-        version = "1.0.0",
         description = "Serialize an ItemStack to HOCON!",
         authors = {
                 "Zerthick"
