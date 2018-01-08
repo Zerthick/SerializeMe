@@ -37,19 +37,21 @@ public class CommandRegister {
                 .arguments(GenericArguments.remainingJoinedStrings(CommandArgs.SERIALIZED_ITEM))
                 .build();
 
+        CommandSpec info = CommandSpec.builder()
+                .permission("serializeme.command.info")
+                .executor(new SerializeMeExecutor(plugin))
+                .build();
+
         CommandSpec serialize = CommandSpec.builder()
                 .permission("serializeme.command.serialize")
                 .executor(new SerializeExecutor(plugin))
-                .arguments(GenericArguments.flags().flag("c").buildWith(GenericArguments.none()))
-                .build();
-
-        CommandSpec serializeMe = CommandSpec.builder()
-                .permission("serializeme.command.info")
-                .executor(new SerializeMeExecutor(plugin))
-                .child(serialize, "serialize", "s")
+                .arguments(GenericArguments.flags()
+                        .flag("j", "-json")
+                        .buildWith(GenericArguments.none()))
                 .child(deserialize, "deserialize", "d")
+                .child(info, "info", "i")
                 .build();
 
-        Sponge.getCommandManager().register(plugin, serializeMe, "serializeme", "sm");
+        Sponge.getCommandManager().register(plugin, serialize, "serializeme", "sm");
     }
 }

@@ -21,11 +21,11 @@ package io.github.zerthick.serializeme.cmd.executors;
 
 import io.github.zerthick.serializeme.SerializeMe;
 import io.github.zerthick.serializeme.cmd.CommandArgs;
-import io.github.zerthick.serializeme.util.ItemStackHOCONSerializer;
-import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
+import org.spongepowered.api.data.DataContainer;
+import org.spongepowered.api.data.persistence.DataFormats;
 import org.spongepowered.api.data.type.HandTypes;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.inventory.ItemStack;
@@ -55,8 +55,9 @@ public class DeserializeExecutor extends AbstractCmdExecutor {
                     src.sendMessage(Text.of(TextColors.RED, "You must hold nothing in your main hand to deserialize an item!"));
                 } else {
                     try {
-                        player.setItemInHand(HandTypes.MAIN_HAND, ItemStackHOCONSerializer.deserializeSnapShot(serializedItemOptional.get()).createStack());
-                    } catch (ObjectMappingException | IOException e) {
+                        DataContainer container = DataFormats.HOCON.read(serializedItemOptional.get());
+                        player.setItemInHand(HandTypes.MAIN_HAND, ItemStack.builder().fromContainer(container).build());
+                    } catch (IOException e) {
                         player.sendMessage(Text.of(TextColors.RED, "Error deserializing itemstack! Error: ", e.getMessage()));
                     }
                 }

@@ -20,11 +20,11 @@
 package io.github.zerthick.serializeme.cmd.executors;
 
 import io.github.zerthick.serializeme.SerializeMe;
-import io.github.zerthick.serializeme.util.ItemStackHOCONSerializer;
-import ninja.leaping.configurate.objectmapping.ObjectMappingException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.command.args.CommandContext;
+import org.spongepowered.api.data.DataContainer;
+import org.spongepowered.api.data.persistence.DataFormats;
 import org.spongepowered.api.data.type.HandTypes;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.item.inventory.ItemStack;
@@ -32,6 +32,7 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.format.TextColors;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Optional;
 
 public class SerializeExecutor extends AbstractCmdExecutor {
@@ -48,12 +49,21 @@ public class SerializeExecutor extends AbstractCmdExecutor {
             Optional<ItemStack> itemStackOptional = player.getItemInHand(HandTypes.MAIN_HAND);
             if (itemStackOptional.isPresent()) {
                 try {
+                    DataContainer container = itemStackOptional.get().toContainer();
+                    StringWriter stringWriter = new StringWriter();
 
-                    String serializeItem = ItemStackHOCONSerializer.serializeSnapShot(itemStackOptional.get().createSnapshot(),
-                            args.hasAny("c"));
+                    if (args.hasAny("j")) {
+                        DataFormats.JSON.writeTo(stringWriter, container);
+                    } else {
+                        DataFormats.HOCON.writeTo(stringWriter, container);
+                    }
 
-                    player.sendMessage(Text.of(serializeItem));
-                } catch (ObjectMappingException | IOException e) {
+                    Text out = Text.builder(stringWriter.toString())
+                            //.onClick(TextActions.openUrl(new URL("http://" + stringWriter.toString())))
+                            .build();
+
+                    player.sendMessage(out);
+                } catch (IOException e) {
                     player.sendMessage(Text.of(TextColors.RED, "Error serializing itemstack! Error: ", e.getMessage()));
                 }
             } else {
