@@ -59,10 +59,10 @@ public class SerializeExecutor extends AbstractCmdExecutor {
                     }
 
                     Text out = Text.builder(stringWriter.toString())
-                            //.onClick(TextActions.openUrl(new URL("http://" + stringWriter.toString())))
                             .build();
 
                     player.sendMessage(out);
+                    plugin.getLogger().info(stringWriter.toString());
                 } catch (IOException e) {
                     player.sendMessage(Text.of(TextColors.RED, "Error serializing itemstack! Error: ", e.getMessage()));
                 }
